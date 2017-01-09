@@ -41,8 +41,7 @@ int main(void) {
   if((fp = fopen(fname1,"rb")) == NULL) {
     printf("Can't open file akicode");
     akicode_tbl_create();
-  }
-  else{
+  } else {
     fclose(fp);
   }
   
@@ -51,14 +50,13 @@ int main(void) {
   if((fp = fopen(fname2,"rb")) == NULL) {
     printf("Can't open file code data");
     codedata_tbl_create();
-  }
-  else{
+  } else {
     fclose(fp);
   }
 
-  while(loop){
+  while(loop) {
     akicode_tbl[0]=0;
-    for(i=0; i<MEMBER_MAX; i++){
+    for(i=0; i<MEMBER_MAX; i++) {
       akicode_tbl[i+1]=0;
       codedata_tbl[i]=0;
       sort_keisoku_tbk[i] = init_kojin_keisoku_tbl();
@@ -79,7 +77,7 @@ int main(void) {
     work[0] = '\0';
     scanf("%s", work);
     
-    if(strlen(work)==1) {
+    if(strlen(work) == 1) {
       printf("Input again!");
       continue;
     }
@@ -114,23 +112,23 @@ static int akicode_tbl_create(void){
   char *fname = AKICODE_TBL_NAME;
 
   akicode_tbl[0] = MEMBER_MAX;
-  for(i = 1; i< MEMBER_MAX; i++){
+  for(i = 1; i< MEMBER_MAX; i++) {
     akicode_tbl[i] = i;
   }
 
-  if((fp = fopen(fname, "w+b")) == NULL){
+  if((fp = fopen(fname, "w+b")) == NULL) {
     printf("Can't open file /n ");
     return NG;
   }
 
   if(( ret = fwrite((char *)akicode_tbl, sizeof(akicode_tbl), 1 ,fp )) != 1) {
-      printf("/n Write error! ");
-      ret = NG;
-    }else{
-      ret = OK;
-    }
-    fclose(fp);
-    return ret;
+    printf("/n Write error! ");
+    ret = NG;
+  } else {
+    ret = OK;
+  }
+  fclose(fp);
+  return ret;
 }
 
 static int codedata_tbl_create(void){
@@ -138,50 +136,47 @@ static int codedata_tbl_create(void){
   int i;
   FILE *fp;
   char *fname = CODEDATA_TBL_NAME;
-
   
-  for(i = 1; i< MEMBER_MAX; i++){
+  for(i = 1; i< MEMBER_MAX; i++) {
     akicode_tbl[i] = 0;
   }
 
-  if((fp = fopen(fname, "w+b")) == NULL){
+  if((fp = fopen(fname, "w+b")) == NULL) {
     printf("Can't open file /n ");
     return NG;
   }
 
   if(( ret = fwrite((char *)codedata_tbl, sizeof(codedata_tbl), 1 ,fp )) != 1) {
-      printf("/n Write error! ");
-      ret = NG;
-    }else{
-      ret = OK;
-    }
-    fclose(fp);
-    return ret;
+    printf("/n Write error! ");
+    ret = NG;
+  } else {
+    ret = OK;
+  }
+  fclose(fp);
+  return ret;
 }
 
-int akicode_tbl_read(void){
+int akicode_tbl_read(void) {
   int ret;
   int i;
   FILE *fp;
   char *fname = AKICODE_TBL_NAME;
  
-  if((fp= fopen(fname, "rb"))== NULL){
+  if((fp= fopen(fname, "rb"))== NULL) {
     printf("/n Open file akicode error!");
     return NG;
   }
   
-  for( i = 0; i< MEMBER_MAX + 1; i++){
-    if((ret = fread((char *)&akicode_tbl[i], sizeof(int), 1, fp)) != 1){
-      if(ferror(fp) != 0){
+  for( i = 0; i< MEMBER_MAX + 1; i++) {
+    if((ret = fread((char *)&akicode_tbl[i], sizeof(int), 1, fp)) != 1) {
+      if(ferror(fp) != 0) {
 	printf("/n READ error!");
 	ret = NG; 
-      }
-      else{
-	if(feof( fp ) == 0){
+      } else {
+	if(feof( fp ) == 0) {
 	  printf("\n READ error");
-	  ret = NG;
-	}
-	else{
+          ret = NG;
+	} else {
 	  ret = OK;
 	}
       }
@@ -204,12 +199,12 @@ int kakunin_input(char *msg){
     work[0] = '\n';
     scanf("%s", work);
 
-    if(strlen(work) != 1){
+    if(strlen(work) != 1) {
       printf("/n Input error");
       continue;
     }
     
-    switch(work[0]){
+    switch(work[0]) {
     case 'y':
     case 'Y':
       ret = OK; 
@@ -218,7 +213,7 @@ int kakunin_input(char *msg){
     case 'n':
     case 'N':
       ret = NG;
-      loop = FLASE;
+      loop = FALSE;
       break;
     default: 
       printf("\n Input miss! ");
@@ -230,29 +225,28 @@ int kakunin_input(char *msg){
 
 /* Doc du lieu tinh toan ca nhan */
 
-int kojin_data_read(int kaiin_code){
+int kojin_data_read(int kaiin_code) {
   int ret;
   FILE *fp;
   long fptr;
   char *fname = KEISOKU_TBL_NAME;
   
-  if((fp = fopen(fname, "rb")) == NULL){
+  if((fp = fopen(fname, "rb")) == NULL) {
     printf("/n Can't open file keisoku !");
     return NG;
   }
 
   fptr = (codedata_tbl[kaiin_code -1]) * sizeof(struct KEISOKU_TBL);
   
-  if( (ret = fseek(fp, fptr, SEEK_SET)) != OK){
+  if((ret = fseek(fp, fptr, SEEK_SET)) != OK) {
     printf("\n SEEK error!");
     fclose(fp);
     return NG;
   }
-  if( (ret = fread((char *)&kojin_keisoku_tbl, sizeof(kojin_keisoku_tbl),1,fp)) !=1){
+  if((ret = fread((char *)&kojin_keisoku_tbl, sizeof(kojin_keisoku_tbl),1,fp)) !=1) {
     printf("\n Open error! ");
     ret = NG;
-  }
-  else{
+  } else {
     ret = OK;
   }
   
@@ -263,7 +257,7 @@ int kojin_data_read(int kaiin_code){
 
 /*Xu ly hien thi tinh toan ca nhan */
 
-void kojin_data_disp(int kaiin_code, char *msg){
+void kojin_data_disp(int kaiin_code, char *msg) {
   printf(msg);
   printf("\n Ma hoi vien %3d", kaiin_code);
   
@@ -306,17 +300,16 @@ void kojin_data_disp(int kaiin_code, char *msg){
     printf("%4d", kojin_keikoku_tbl.soku_data[7]);
     printf("%4d", kojin_keikoku_tbl.soku_data[8]);
     printf("%4d", kojin_keikoku_tbl.soku_data[9]);
-  }
-  else{
+  } else {
     printf(" Khong co data");
     return;
   }
-  return
+  return;
 }
 
-struct KEISOKU_TBL init_kojin_keisoku_tbl(void){
+struct KEISOKU_TBL init_kojin_keisoku_tbl(void) {
   static struct KEISOKU_TBL tbl = {
-    0,0, "  ", 0, "  ", 0, " ", 0,0,0,0,0,0,0,0,0,0
+    0, 0, "  ", 0, "  ", 0, " ", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
   };
   return tbl;
 }
