@@ -71,6 +71,7 @@ int main(void) {
     printf("\n 1: Dang ky ");
     printf("\n 2: Nhap record ");
     printf("\n 3: Xoa dang ky");
+    printf("\n 4: Hien thi 3 ky luc moi thang! ");
     printf("\n E: ket thuc");
     printf("\n ? ");
 
@@ -236,7 +237,7 @@ int kojin_data_read(int kaiin_code) {
     return NG;
   }
 
-  fptr = (codedata_tbl[kaiin_code -1]) * sizeof(struct KEISOKU_TBL);
+  fptr = (codedata_tbl[kaiin_code -1] -1) * sizeof(struct KEISOKU_TBL);
   
   if((ret = fseek(fp, fptr, SEEK_SET)) != OK) {
     printf("\n SEEK error!");
@@ -244,7 +245,7 @@ int kojin_data_read(int kaiin_code) {
     return NG;
   }
   if((ret = fread((char *)&kojin_keisoku_tbl, sizeof(kojin_keisoku_tbl),1,fp)) !=1) {
-    printf("\n Open error! ");
+    printf("\n Open error main! ");
     ret = NG;
   } else {
     ret = OK;

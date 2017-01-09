@@ -56,7 +56,7 @@ int keisoku_input(void){
   kojin_data_disp(kaiin_code, "\n du lieu ket qua");
 
   while(getchar() != '\n');
-  printf("\n an key tra ve!");
+  printf("\n AN bat ky tu nao de tro ve! !");
   getchar();
 
   ret = keisoku_rank();
@@ -129,7 +129,7 @@ static void keisoku_date_input(char *keisoku_date){
       printf("\n Iuput day miss");
       continue;
     }
-    if(strspn(work, "123456789") < strlen(work)){
+    if(strspn(work, "1234567890") < strlen(work)){
       printf("\n value input error! ");
       continue;
     }

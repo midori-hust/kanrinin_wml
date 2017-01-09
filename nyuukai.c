@@ -63,6 +63,10 @@ static int akicode_tbl_update(void){
   akicode_tbl[ i ] = 0;
   akicode_tbl[ 0 ] = cnt -1;
 
+  if ((fp = fopen(fname, "w+b")) == NULL){
+    printf("\n Can't open");
+    return NG;
+  }
   if((ret = fwrite((char *)akicode_tbl, sizeof(int ) * (akicode_tbl[ 0 ] + 1), 1, fp)) != 1){
     printf("\n Write file error!");
   } else {

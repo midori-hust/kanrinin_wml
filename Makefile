@@ -1,10 +1,10 @@
 CC = gcc
 CFLAGS = -g -std=c99
 
-all: main
+all: main 
 
 main: main.o nyuukai.o keisoku.o sakujyo.o
-	$(CC) main.o nyuukai.o keisoku.o sakujyo.o -o main
+	$(CC) main.o nyuukai.o keisoku.o sakujyo.o -o main -lm
 
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c -o main.o
