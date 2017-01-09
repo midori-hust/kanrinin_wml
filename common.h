@@ -21,12 +21,11 @@ struct KEISOKU_TBL{
   int max_data; /* du lieu ngay ghi lai ky luc cao nhat*/
   char soku_date[9]; /*ngay do moi nhat*/
   int soku_data[9]; /*du lieu do*/
-}
+};
 
 /* du lieu do luong nhap vao*/
 struct KEISOKU_INPUT{
   int huka; /* trach nhiem*/
   int set; 
   int kaisuu; /*so lan*/
-}
-
+};
