@@ -6,7 +6,7 @@
 #include "main.h"
 #include "nyuukai.h"
 #include "keisoku.h"
-#include "sakujou.h"
+#include "sakujyo.h"
 
 /******************************/
 /*du lieu chung               */
@@ -31,7 +31,7 @@ struct KEISOKU_TBL sort_keisoku_tbl[MEMBER_MAX];
 int main(void) {
   int loop = TRUE;
   char work[128];
-  File *fp;
+  FILE *fp;
   char *fname1 = AKICODE_TBL_NAME;
   char *fname2 = CODEDATA_TBL_NAME;
   int i;
@@ -39,7 +39,7 @@ int main(void) {
   /* Open akicode */
 
   if((fp = fopen(fname1,"rb")) == NULL) {
-    printf("Can't open file akicode");
+    printf("\nCan't open file akicode");
     akicode_tbl_create();
   } else {
     fclose(fp);
@@ -48,7 +48,7 @@ int main(void) {
   /* Open code data */
 
   if((fp = fopen(fname2,"rb")) == NULL) {
-    printf("Can't open file code data");
+    printf("\nCan't open file code data");
     codedata_tbl_create();
   } else {
     fclose(fp);
@@ -59,7 +59,7 @@ int main(void) {
     for(i=0; i<MEMBER_MAX; i++) {
       akicode_tbl[i+1]=0;
       codedata_tbl[i]=0;
-      sort_keisoku_tbk[i] = init_kojin_keisoku_tbl();
+      sort_keisoku_tbl[i] = init_kojin_keisoku_tbl();
     }
     kojin_keisoku_tbl = init_kojin_keisoku_tbl();
     
@@ -77,7 +77,7 @@ int main(void) {
     work[0] = '\0';
     scanf("%s", work);
     
-    if(strlen(work) == 1) {
+    if(strlen(work) != 1) {
       printf("Input again!");
       continue;
     }
@@ -85,18 +85,17 @@ int main(void) {
     switch(work[0]) {
     case '1':
       nyuukai_touroku();
-      break();
+      break;
     case '2':
       keisoku_input();
-      break();
+      break;
     case '3':
-      touroku_sakujou();
+      touroku_sakujyo();
       break;
     case 'e':
     case 'E':
       loop = FALSE;
       break;
-      
     default:
       printf("Input miss!");
       break;
@@ -173,7 +172,7 @@ int akicode_tbl_read(void) {
 	printf("/n READ error!");
 	ret = NG; 
       } else {
-	if(feof( fp ) == 0) {
+	if(feof(fp) == 0) {
 	  printf("\n READ error");
           ret = NG;
 	} else {
@@ -183,7 +182,8 @@ int akicode_tbl_read(void) {
       break;
     }
   }
-  fclose();
+  
+  fclose(fp);
   return ret;
 }
 /* Xac nhan viec xu ly*/
@@ -193,7 +193,7 @@ int kakunin_input(char *msg){
   char work[128];
   
   while(loop) {
-    printf(mgs);
+    printf("\n%s", msg);
     printf("\n ?");
     
     work[0] = '\n';
@@ -256,9 +256,8 @@ int kojin_data_read(int kaiin_code) {
 }
 
 /*Xu ly hien thi tinh toan ca nhan */
-
 void kojin_data_disp(int kaiin_code, char *msg) {
-  printf(msg);
+  printf("\n%s", msg);
   printf("\n Ma hoi vien %3d", kaiin_code);
   
   if(kojin_keisoku_tbl.count != 0){
@@ -268,9 +267,9 @@ void kojin_data_disp(int kaiin_code, char *msg) {
     printf("\n %3d", kojin_keisoku_tbl.count);
     
     printf("\n %4.4s-%2.2s-%2.2s",
-	   &kojin_keisoku_tbl.firstdate[0],
-	   &kojin_keisoku_tbl.firstdate[4],
-	   &kojin_keisoku_tbl.firstdate[6]);
+	   &kojin_keisoku_tbl.first_date[0],
+	   &kojin_keisoku_tbl.first_date[4],
+	   &kojin_keisoku_tbl.first_date[6]);
 
     printf("\n %4d", kojin_keisoku_tbl.first_data);
     
@@ -291,15 +290,15 @@ void kojin_data_disp(int kaiin_code, char *msg) {
     printf("\n\n Lan1 Lan2 Lan3 Lan4 ");
     printf("Lan5 Lan6 Lan7 Lan8 Lan9\n");
     
-    printf("%4d", kojin_keikoku_tbl.soku_data[1]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[2]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[3]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[4]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[5]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[6]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[7]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[8]);
-    printf("%4d", kojin_keikoku_tbl.soku_data[9]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[1]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[2]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[3]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[4]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[5]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[6]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[7]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[8]);
+    printf("%4d", kojin_keisoku_tbl.soku_data[9]);
   } else {
     printf(" Khong co data");
     return;

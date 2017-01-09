@@ -19,4 +19,4 @@ keisoku.o: keisoku.c keisoku.h
 	$(CC) $(CFLAGS) -c keisoku.c -o keisoku.o
 
 clean:
-	rm -rf *.o *~ main
+	rm -rf *.o *~ main *.tbl

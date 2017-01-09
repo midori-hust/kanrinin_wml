@@ -13,14 +13,14 @@
 
 /* tinh toan table data */
 struct KEISOKU_TBL{
-  int kanin_code; /* ma code cua hoi vien */
+  int kaiin_code; /* ma code cua hoi vien */
   int count; /* so lan tinh toan */
   char first_date[9]; /* ngay dau tien */
   int first_data; /* du lieu lan dau*/
   char max_date[9]; /* ngay ghi lai ky luc cao nhat */
   int max_data; /* du lieu ngay ghi lai ky luc cao nhat*/
   char soku_date[9]; /*ngay do moi nhat*/
-  int soku_data[9]; /*du lieu do*/
+  int soku_data[10]; /*du lieu do*/
 };
 
 /* du lieu do luong nhap vao*/

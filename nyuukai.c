@@ -7,26 +7,26 @@
 #include "main.h"
 #include "nyuukai.h"
 
-extern int akiocde_tbl[MEMBER_MAX + 1];
+extern int akicode_tbl[MEMBER_MAX + 1];
 extern int codedata_tbl[MEMBER_MAX];
 extern struct KEISOKU_TBL kojin_keisoku_tbl;
 
-int nyuukai_touroku(){
+int nyuukai_touroku() {
   int ret;
   int kaiin_code;
   long fptr;
   char msg[64];
   
-  if((ret = akicode_tbl_read())== NG){
+  if((ret = akicode_tbl_read()) == NG){
     return ret;
   }
   
   if(akicode_tbl[0] <= 0){
     printf("\n Dang tiec nhung ma khong con cho de dang ky");
-    ret = OK;
-    return ret;
+    return OK;
   }
-  sprintf(msg, "\n Ma code laf %d. Duoc khong (Y/N)");
+
+  sprintf(msg, "\n Ma code la %d. Duoc khong (Y/N)", akicode_tbl[1]);
   
   if((ret = kakunin_input(msg)) == OK) {
     kaiin_code = akicode_tbl[1];
@@ -54,7 +54,7 @@ static int akicode_tbl_update(void){
   cnt = akicode_tbl[0];
 
   for(i = 1; i< cnt; i++){
-    if( ckicode_tbl[ i+1 ] == 0){
+    if( akicode_tbl[ i+1 ] == 0){
       break;
     }
     akicode_tbl[ i ] = akicode_tbl[ i+1 ];
@@ -63,14 +63,14 @@ static int akicode_tbl_update(void){
   akicode_tbl[ i ] = 0;
   akicode_tbl[ 0 ] = cnt -1;
 
-  if((ret = fwrite((char *)akicode_tbl, 
-	   sizeof(int ) * (akicode_tbl[ 0 ] + 1), 1, fp)) != 1){
+  if((ret = fwrite((char *)akicode_tbl, sizeof(int ) * (akicode_tbl[ 0 ] + 1), 1, fp)) != 1){
     printf("\n Write file error!");
-  }
-  else{
+  } else {
     ret = OK;
   }
-  fclose( fp );
+
+  fclose(fp);
+  return ret;
 }
 
 /**Add code in file keisoku **/
@@ -94,7 +94,7 @@ static int keisoku_tbl_add(long *fptr, int kaiin_code){
 
   kojin_keisoku_tbl.kaiin_code = kaiin_code;
 
-  if((ret = fwrite((char *)&kojiin_keisoku_tbl,
+  if((ret = fwrite((char *)&kojin_keisoku_tbl,
 		   sizeof(kojin_keisoku_tbl), 1,fp)) != 1){
     printf("\n Write file keisoku error!");
     ret = NG;
@@ -123,8 +123,7 @@ static int codedata_tbl_update(int kaiin_code, long fptr){
     ret = NG;
   }
   else{
-    codedata_tbl[kaiin_code -1 ] = 
-    (int)((fptr/sizeof(struct KEISOKU_TBL)) +1);
+    codedata_tbl[kaiin_code -1 ] = (int)((fptr/sizeof(struct KEISOKU_TBL)) +1);
     
     if((ret = fseek(fp, 0L, SEEK_SET)) != OK){
       printf("\n SEEK file code data error");
@@ -132,8 +131,7 @@ static int codedata_tbl_update(int kaiin_code, long fptr){
       return NG;
     }
     
-    if((ret = fwrite((char *)codedata_tbl, 
-		     sizeof(codedata_tbl), 1, fp)) != 1){
+    if((ret = fwrite((char *)codedata_tbl, sizeof(codedata_tbl), 1, fp)) != 1){
       printf("Write file code data error!");
       ret = NG;   
     }
@@ -145,5 +143,4 @@ static int codedata_tbl_update(int kaiin_code, long fptr){
   fclose(fp);
   return ret;
 }
-
 
