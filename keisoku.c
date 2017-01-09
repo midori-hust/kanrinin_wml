@@ -5,7 +5,7 @@
 #include <math.h>
 
 #include "common.h"
-#inlcude "main.h"
+#include "main.h"
 #include "keisoku.h"
 
 extern int akicode_tbl[MEMBER_MAX + 1];
@@ -123,7 +123,7 @@ static void keisoku_date_input(char *keisoku_date){
     printf("\n Nhap ngay de dinh vao (YYYYMMDD)");
     printf("\n ?");
     
-    work[ 0 ] = "\0";
+    work[ 0 ] = '\0';
     scanf("%s", work);
     if(strlen(work) != 8){
       printf("\n Iuput day miss");
@@ -159,7 +159,7 @@ static void keisoku_date_input(char *keisoku_date){
 
 static void keisoku_data_input(int idx){
   int i;
-  int loop = TURE;
+  int loop = TRUE;
   char work[3][128];
 
   while(loop){
@@ -202,14 +202,14 @@ static void keisoku_data_input(int idx){
   keisoku_indata[ idx ].kaisuu = atoi(work[2]);
 }
 
-static void keisoku_data_disp(int kanin_code, char *keisoku_date) {
+static void keisoku_data_disp(int kaiin_code, char *keisoku_date) {
   int i;
   printf("\n nhap du lieu can tinh toan");
   printf("\n kaiin code %3d", kaiin_code);
-  printf("\n Ngay in %4.4s-%2.2-%2.2s",
-	 (keiso_date+0), (keiso_date +4), (keiso_date +6));
+  printf("\n Ngay in %4.4s-%2.2s-%2.2s",
+	 (keisoku_date + 0), (keisoku_date + 4), (keisoku_date + 6));
   printf("\n\n hoat dong luong tai set so lan");
-  for( i = 0; i<5 ; i++) {
+  for( i = 0; i < 5 ; i++) {
     printf("\n %d  %3d %3d %3d", i+1,
 	   keisoku_indata[ i ].huka,
 	   keisoku_indata[ i ].set,
@@ -229,17 +229,17 @@ static void undou_sisuu_keisan(int *undou_sisuu) {
     if(keisoku_indata[i].kaisuu <= 1){
       continue;
     }
-    sisuu = haku_sisuu[ i ]* (dobule) keisoku_indata[i].haku *
+    sisuu = haku_sisuu[ i ]* (double) keisoku_indata[i].huka *
       (double)keisoku_indata[ i ].set * 
       ((pow( (double)keisoku_indata[ i ].kaisuu, 2.0))/
        ((double)keisoku_indata[ i ].kaisuu - 1.0));
     sisuu_total += sisuu;
   }
-  *undon_sisuu = (int)sqrt(sisuu_total);
+  *undou_sisuu = (int)sqrt(sisuu_total);
   return;
 }
 static int kojin_data_update(int kaiin_code, char *keisoku_date, 
-       int undon_sisuu){
+			     int undou_sisuu){
   int ret;
   long fptr;
   FILE *fp;
@@ -247,9 +247,8 @@ static int kojin_data_update(int kaiin_code, char *keisoku_date,
   int i;
 
   if (kojin_keisoku_tbl.count <= 0 ) {
-    
-    strcpy(kojin_keisoku_tbl.fisrt_date, keisoku_date);
-    kojin_keisoku_tbl.fisrt_data = undon_sisuu;
+    strcpy(kojin_keisoku_tbl.first_date, keisoku_date);
+    kojin_keisoku_tbl.first_data = undou_sisuu;
     strcpy(kojin_keisoku_tbl.max_date, keisoku_date);
     kojin_keisoku_tbl.max_data = undou_sisuu;
   }
@@ -307,7 +306,7 @@ static int keisoku_rank(void){
   i = 0;
   for (; ; ) {
     if ((ret = fread((char *)&sort_keisoku_tbl[ i ],
-                      sizeof(struct KEISOKU_TBL), 1,fp)) != 1){
+		     sizeof(struct KEISOKU_TBL), 1,fp)) != 1){
       if (ferror(fp) != 0 ){
         printf("\n Read error ");
         ret = NG;
@@ -360,19 +359,20 @@ static void keisoku_data_sort(int cnt){
   return;
 }
 
-static void keisoku_sort_disp(int cnt){
+static void keisoku_sort_disp(int cnt) {
   int i;
-  printf("\n \n Thu tu bang ");
-  printf("\n \n Thu tu      Ma nhan vien      Du lieu cao nhat   Ngay dinh kem");
+  printf("\n\nThu tu bang ");
+  printf("\n\nThu tu      Ma nhan vien      Du lieu cao nhat   Ngay dinh kem");
   for (i = 0; i < cnt; i++){
     if (i >= 10 ) {
       break;
     }
-    printf("\n \n %2d   %3d    %4d     %4.4s-%2.2s", i + 1, 
-          sort_keisoku_tbl[ i ].kaiin_code,
-          sort_keisoku_tbl[ i ].max_date[0],
-          sort_keisoku_tbl[ i ].max_date[4],
-          sort_keisoku_tbl[ i ].max_date[6]);
+    printf("\n\n%2d   %3d    %4d     %4.4s-%2.2s-%2.2s", i + 1, 
+	   sort_keisoku_tbl[ i ].kaiin_code,
+	   sort_keisoku_tbl[ i ].max_data,
+	   &sort_keisoku_tbl[ i ].max_date[0],
+	   &sort_keisoku_tbl[ i ].max_date[4],
+	   &sort_keisoku_tbl[ i ].max_date[6]);
   }
   return;
 }
