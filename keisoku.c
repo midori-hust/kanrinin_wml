@@ -53,6 +53,7 @@ int keisoku_input(void){
   }
 
   undou_sisuu_keisan(&undou_sisuu);
+  kojin_data_update(kaiin_code, keisoku_date, undou_sisuu);
   kojin_data_disp(kaiin_code, "\n du lieu ket qua");
 
   while(getchar() != '\n');
@@ -362,12 +363,12 @@ static void keisoku_data_sort(int cnt){
 static void keisoku_sort_disp(int cnt) {
   int i;
   printf("\n\nThu tu bang ");
-  printf("\n\nThu tu      Ma nhan vien      Du lieu cao nhat   Ngay dinh kem");
+  printf("\n\nThu tu    Ma nhan vien     Data cao nhat   Ngay dinh kem");
   for (i = 0; i < cnt; i++){
     if (i >= 10 ) {
       break;
     }
-    printf("\n\n%2d   %3d    %4d     %4.4s-%2.2s-%2.2s", i + 1, 
+    printf("\n\n%2d     %3d              %4d             %4.4s-%2.2s-%2.2s", i + 1, 
 	   sort_keisoku_tbl[ i ].kaiin_code,
 	   sort_keisoku_tbl[ i ].max_data,
 	   &sort_keisoku_tbl[ i ].max_date[0],

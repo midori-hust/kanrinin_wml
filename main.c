@@ -262,44 +262,44 @@ void kojin_data_disp(int kaiin_code, char *msg) {
   printf("\n Ma hoi vien %3d", kaiin_code);
   
   if(kojin_keisoku_tbl.count != 0){
-    printf("\n\n so lan tinh toan    du lieu ngay gan nhat");
-    printf("Du lieu ngay cao nhat    du lieu ngay moi nhat");
+    printf("\n\n so lan tinh| data ngay gan nhat");
+    printf("| data ngay cao nhat | data ngay moi nhat");
     
     printf("\n %3d", kojin_keisoku_tbl.count);
     
-    printf("\n %4.4s-%2.2s-%2.2s",
+    printf("    |   (%4.4s-%2.2s-%2.2s)",
 	   &kojin_keisoku_tbl.first_date[0],
 	   &kojin_keisoku_tbl.first_date[4],
 	   &kojin_keisoku_tbl.first_date[6]);
 
-    printf("\n %4d", kojin_keisoku_tbl.first_data);
+    printf(" %4d", kojin_keisoku_tbl.first_data);
     
-    printf("\n %4.4s-%2.2s-%2.2s",
+    printf("    |   (%4.4s-%2.2s-%2.2s)",
 	   &kojin_keisoku_tbl.max_date[0],
 	   &kojin_keisoku_tbl.max_date[4],
 	   &kojin_keisoku_tbl.max_date[6]);
   
-    printf("\n %3d", kojin_keisoku_tbl.max_data);
+    printf("%3d", kojin_keisoku_tbl.max_data);
     
-    printf("\n %4.4s-%2.2s-%2.2s",
+    printf("    |   (%4.4s-%2.2s-%2.2s)",
 	   &kojin_keisoku_tbl.soku_date[0],
 	   &kojin_keisoku_tbl.soku_date[4],
 	   &kojin_keisoku_tbl.soku_date[6]);
 
-    printf("\n %3d", kojin_keisoku_tbl.soku_data[0]);
+    printf("%3d", kojin_keisoku_tbl.soku_data[0]);
     
     printf("\n\n Lan1 Lan2 Lan3 Lan4 ");
     printf("Lan5 Lan6 Lan7 Lan8 Lan9\n");
     
-    printf("%4d", kojin_keisoku_tbl.soku_data[1]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[2]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[3]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[4]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[5]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[6]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[7]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[8]);
-    printf("%4d", kojin_keisoku_tbl.soku_data[9]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[1]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[2]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[3]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[4]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[5]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[6]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[7]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[8]);
+    printf("% 4d", kojin_keisoku_tbl.soku_data[9]);
   } else {
     printf(" Khong co data");
     return;
