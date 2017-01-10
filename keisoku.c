@@ -120,13 +120,13 @@ static void keisoku_date_input(char *keisoku_date){
   char work[ 128 ];
   
   while( loop ){
-    printf("\n Nhap ngay de dinh vao (YYYYMMDD)");
+    printf("\n Nhap ngay de dinh vao (YYYYMM)");
     printf("\n ?");
     
     work[ 0 ] = '\0';
     scanf("%s", work);
-    if(strlen(work) != 8){
-      printf("\n Iuput day miss");
+    if(strlen(work) != 6){
+      printf("\n Input day miss");
       continue;
     }
     if(strspn(work, "1234567890") < strlen(work)){
@@ -142,15 +142,7 @@ static void keisoku_date_input(char *keisoku_date){
       printf("\n thang nhap sai");
       continue;
     }
-    conv[0] = work[6];
-    conv[1] = work[7];
-    conv[2] = '\0';
-    
-    chk_date = atoi(conv);
-    if(chk_date >31 || chk_date < 1){
-      printf("\n ngay nhap sai");
-      continue;
-    } 
+
     break;
   }
   strcpy(keisoku_date, work);
